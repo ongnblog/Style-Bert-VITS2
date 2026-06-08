@@ -5,7 +5,7 @@ from typing import Any
 import numpy as np
 import torch
 from numpy.typing import NDArray
-from pyannote.audio import Inference, Model
+#from pyannote.audio import Inference, Model
 from tqdm import tqdm
 
 from config import get_config
@@ -16,10 +16,10 @@ from style_bert_vits2.utils.stdout_wrapper import SAFE_STDOUT
 
 config = get_config()
 
-model = Model.from_pretrained("pyannote/wespeaker-voxceleb-resnet34-LM")
-inference = Inference(model, window="whole")
-device = torch.device(config.style_gen_config.device)
-inference.to(device)
+#model = Model.from_pretrained("pyannote/wespeaker-voxceleb-resnet34-LM")
+#inference = Inference(model, window="whole")
+#device = torch.device(config.style_gen_config.device)
+#inference.to(device)
 
 
 class NaNValueError(ValueError):
@@ -27,8 +27,12 @@ class NaNValueError(ValueError):
 
 
 # 推論時にインポートするために短いが関数を書く
+#def get_style_vector(wav_path: str) -> NDArray[Any]:
+#    return inference(wav_path)  # type: ignore
+
 def get_style_vector(wav_path: str) -> NDArray[Any]:
-    return inference(wav_path)  # type: ignore
+    style_vec = torch.zeros(256, dtype=torch.float32)
+    return style_vec.numpy()
 
 
 def save_style_vector(wav_path: str):
